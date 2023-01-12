@@ -154,7 +154,6 @@
         </tr>
         @foreach ($todos as $todo)
         <tr>
-          <!-- <td>{{$todo->created_at}}</td> -->
           <td>{{$todo->created_at}}</td>
           <form action="/todo/update?id={{$todo->id}}" method="post">
             @csrf

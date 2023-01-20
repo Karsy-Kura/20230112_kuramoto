@@ -10,5 +10,15 @@ class Todo extends Model
   use HasFactory;
   
   protected $guraded = ['id'];
-  protected $fillable = ['content'];
+  protected $fillable = ['content', 'tag'];
+
+  function user()
+  {
+    return $this->belongsTo('App\Models\User');
+  }
+
+  function tag()
+  {
+    return $this->belongsTo('App\Models\Tag');
+  }
 }

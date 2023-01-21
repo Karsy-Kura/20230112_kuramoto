@@ -1,12 +1,12 @@
 @extends('layouts.todo')
 <style>
   :root {
-    --btn-color-find: #cdf119;
+    --btn-color-back: #6d7170;
   }
 
-  .button__find {
-    border: 2px solid var(--btn-color-find);
-    color: var(--btn-color-find);
+  .button__back {
+    border: 2px solid var(--btn-color-back);
+    color: var(--btn-color-back);
     white-space: nowrap;
 
     /* common */
@@ -21,7 +21,7 @@
   }
 
   .button__find:hover {
-    background-color: var(--btn-color-find);
+    background-color: var(--btn-color-back);
     color: var(--btn-color-common);
     transition: .4s;
   }
@@ -29,11 +29,15 @@
 
 @section('title', 'TodoList')
 
-@section('button__find')
-<form action="/todo/find" method="get">
-  @csrf
-  <button class="button__find">タスク検索</button>
-</form>
+@section('select__default')
+<option value="" selected hidden></option>
 @endsection
 
-@section('button__action', '追加')
+@section('button__action', '検索')
+
+@section('card__footer')
+<form action="/" method="get">
+  @csrf
+  <button class="button__back">戻る</button>
+</form>
+@endsection

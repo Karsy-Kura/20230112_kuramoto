@@ -7,7 +7,11 @@ use App\Models\Todo;
 use App\Models\Tag;
 use App\Http\Requests\TodoRequest;
 use App\Models\User;
+use Hamcrest\Core\IsNull;
 use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class TodoController extends Controller
 {
@@ -15,9 +19,9 @@ class TodoController extends Controller
   {
     $user = Auth::user();
     $tags = Tag::all();
-    $param =[
-      'user' => $user, 
-      'todos' => $user->todos, 
+    $param = [
+      'user' => $user,
+      'todos' => $user->todos,
       'tags' => $tags
     ];
     return view('index', $param);
@@ -56,5 +60,39 @@ class TodoController extends Controller
 
     Todo::where($condition)->delete();
     return redirect('/');
+  }
+
+  public function find()
+  {
+    $user = Auth::user();
+    $tags = Tag::all();
+    $param = [
+      'user' => $user,
+      'todos' => [],
+      'tags' => $tags
+    ];
+    return view('find', $param);
+  }
+
+  public function search(Request $request)
+  {
+    $user = Auth::user();
+    $query = $request->query();
+    unset($query['_token']);
+
+    $content = $query['content'];
+    $todos = Todo::where([['user_id', '=', $user->id], ['content', 'LIKE', "%$content%"]])->get();
+
+    if (array_key_exists("tag_id", $query)) {
+      $todos = $todos->where('tag_id', '=', $query['tag_id']);
+    }
+
+    $tags = Tag::all();
+    $param = [
+      'user' => $user,
+      'todos' => $todos,
+      'tags' => $tags
+    ];
+    return view('find', $param);
   }
 }

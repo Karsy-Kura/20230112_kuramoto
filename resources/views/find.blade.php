@@ -30,10 +30,21 @@
 @section('title', 'TodoList')
 
 @section('select__default')
-<option value="" selected hidden></option>
 @endsection
 
-@section('button__action', '検索')
+@section('todo__action')
+<form action="/todo/search" method="get" class="todo__create--form">
+  @csrf
+  <input class="content__common content__add" type="text" name="content">
+  <select class="select__tag" name="tag_id">
+    <option selected disabled></option>
+    @foreach ($tags as $tag)
+    <option value="{{$tag->id}}">{{$tag->name}}</option>
+    @endforeach
+  </select>
+  <button class="button__common button__add">検索</button>
+</form>
+@endsection
 
 @section('card__footer')
 <form action="/" method="get">

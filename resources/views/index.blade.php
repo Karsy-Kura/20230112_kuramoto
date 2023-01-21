@@ -36,4 +36,19 @@
 </form>
 @endsection
 
-@section('button__action', '追加')
+@section('todo__action')
+@error('content')
+<li>{{$message}}</li>
+@enderror
+<form action="/todo/create" method="post" class="todo__create--form">
+  @csrf
+  <input class="content__common content__add" type="text" name="content">
+  <select class="select__tag" name="tag_id">
+    @yield('select__default')
+    @foreach ($tags as $tag)
+    <option value="{{$tag->id}}">{{$tag->name}}</option>
+    @endforeach
+  </select>
+  <button class="button__common button__add">追加</button>
+</form>
+@endsection

@@ -179,22 +179,8 @@
         @yield('button__find')
       </div>
       <div class="todo__create">
-        @error('content')
-        <li>{{$message}}</li>
-        @enderror
-        <form action="/todo/create" method="post" class="todo__create--form">
-          @csrf
-          <input class="content__common content__add" type="text" name="content">
-          <select class="select__tag" name="tag_id">
-            @yield('select__default')
-            @foreach ($tags as $tag)
-            <option value="{{$tag->id}}">{{$tag->name}}</option>
-            @endforeach
-          </select>
-          <button class="button__common button__add">@yield('button__action')</button>
-        </form>
+        @yield('todo__action')
       </div>
-
       <table class="todo__list">
         <tr>
           <th>作成日</th>

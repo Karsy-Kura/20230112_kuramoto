@@ -20,13 +20,15 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/', [TodoController::class, 'index']) ->middleware('auth');
+Route::get('/', [TodoController::class, 'index'])->middleware('auth');
 
 Route::group(['prefix' => 'todo'], function () {
-  Route::post('create', [TodoController::class, 'store']);
-  Route::post('update', [TodoController::class, 'update']);
-  Route::post('delete', [TodoController::class, 'delete']);
+  Route::group(['middleware' => 'auth'], function () {
+    Route::post('create', [TodoController::class, 'store']);
+    Route::post('update', [TodoController::class, 'update']);
+    Route::post('delete', [TodoController::class, 'delete']);
 
-  Route::get('find', [TodoController::class, 'find']);
-  Route::get('search', [TodoController::class,'search']);
+    Route::get('find', [TodoController::class, 'find']);
+    Route::get('search', [TodoController::class, 'search']);
+  });
 });

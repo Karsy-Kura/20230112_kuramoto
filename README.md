@@ -6,9 +6,11 @@
 CoachTechの演習課題として作成.
 
 ## 機能一覧
+- ログイン機能
 - タスク登録
 - Todo一覧表示
 - Todoの更新・削除
+- タスク検索機能
 
 ## 使用技術
 - Laravel 8.x
@@ -18,6 +20,6 @@ CoachTechの演習課題として作成.
 ![テーブル設計図](./img/table.png)
 
 ## ER図
-![ER図](./img/ER.png)
+![ER図](./img/ER.drawio.png)
 
 ## その他
